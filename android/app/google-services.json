@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "172004646805",
+    "project_id": "medha-e1320",
+    "storage_bucket": "medha-e1320.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172004646805:android:a37e812513d6709ebc609c",
+        "android_client_info": {
+          "package_name": "com.ryanryu.MedHacks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172004646805-bt5l7sdqq20snmmdf2vh6bemg0ep25pa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGBOxnSSFy2iSF-7eTCfK4MeaYsNHpFj0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172004646805-bt5l7sdqq20snmmdf2vh6bemg0ep25pa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
