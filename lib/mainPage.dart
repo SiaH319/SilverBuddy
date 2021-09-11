@@ -4,6 +4,7 @@ import 'package:flutter_app/LoginPage.dart';
 import 'package:flutter_app/MapPage.dart';
 import 'package:flutter_app/QuestPage.dart';
 import 'package:flutter_app/SurveyPage.dart';
+import 'package:flutter_app/firstPage.dart';
 import 'package:flutter_app/pageModel.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,16 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+  // This widget is the root of your application.
+  //pageId
+  // 0 : LoginPage
+  // 1 : SurveyPage
+  // 2 : MapPage
+  // 3 : QuestPage
+  // 4 : ChatPage
+  // 5 : FirstPage
+
   @override
   Widget build(BuildContext context) {
     PageModel pageModel = context.watch<PageModel>();
@@ -25,7 +36,8 @@ class _MainPageState extends State<MainPage> {
                   ? MapPage()
                   : (pageModel.pageId == 3)
                       ? QuestPage()
-                      : ChatPage(),
+                      : (pageModel.pageId == 4) ? ChatPage()
+          :FirstPage(),
     );
   }
 }

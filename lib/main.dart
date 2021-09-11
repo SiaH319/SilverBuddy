@@ -13,13 +13,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  //pageId
-  // 0 : LoginPage
-  // 1 : SurveyPage
-  // 2 : MapPage
-  // 3 : QuestPage
-  // 4 : ChatPage
+
   @override
   Widget build(BuildContext context) {
     PageModel pageModel = new PageModel();
