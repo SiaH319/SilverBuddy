@@ -1,17 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/loginManager.dart';
 import 'package:flutter_app/pageModel.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/src/provider.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class signupPage extends StatefulWidget {
+  const signupPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _signupPageState createState() => _signupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _signupPageState extends State<signupPage> {
   TextEditingController IDController = new TextEditingController();
   TextEditingController PasswordController = new TextEditingController();
   var username;
@@ -29,9 +27,9 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               height: 50,
               width: 300,
-              child: Center(child: Text('Sign in')),
+              child: Center(child: Text('Sign up')),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black)
+                  border: Border.all(color: Colors.black)
               ),
             ),
             SizedBox(
@@ -71,13 +69,10 @@ class _LoginPageState extends State<LoginPage> {
                     setState(() {
                       username = IDController.text;
                       password = PasswordController.text;
-                      new LoginManager().signUp(username, password);
-                      print(username);
-                      print(password);
-                      pageModel.changePageId(1);
+
                     });
                   },
-                  child: Text('Login'),
+                  child: Text('sign up'),
                 ),
               ),
             ),

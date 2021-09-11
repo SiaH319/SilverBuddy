@@ -6,6 +6,7 @@ import 'package:flutter_app/QuestPage.dart';
 import 'package:flutter_app/SurveyPage.dart';
 import 'package:flutter_app/firstPage.dart';
 import 'package:flutter_app/pageModel.dart';
+import 'package:flutter_app/signupPage.dart';
 import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
@@ -36,8 +37,11 @@ class _MainPageState extends State<MainPage> {
                   ? MapPage()
                   : (pageModel.pageId == 3)
                       ? QuestPage()
-                      : (pageModel.pageId == 4) ? ChatPage()
-          :FirstPage(),
+                      : (pageModel.pageId == 4)
+                        ? ChatPage()
+                        :(pageModel.pageId == 5)
+                          ? FirstPage()
+                          : signupPage()
     );
   }
 }
