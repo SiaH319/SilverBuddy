@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/loginManager.dart';
 import 'package:flutter_app/pageModel.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,91 +13,153 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController IDController = new TextEditingController();
+  TextEditingController EmailController = new TextEditingController();
   TextEditingController PasswordController = new TextEditingController();
-  var username;
   var password;
+  var email;
   @override
   Widget build(BuildContext context) {
     PageModel pageModel = context.watch<PageModel>();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 200,
-            ),
-            Container(
-              height: 50,
-              width: 300,
-              child: Center(child: Text('Sign in')),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black)
+        child: Container(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 100,
               ),
-            ),
-            SizedBox(
-              height: 150,
-            ),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: IDController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                    labelText: 'user account',
-                    hintText: 'Enter Email Address',
-                    icon: Icon(Icons.person),
+              Stack(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(width: 30,),
+                      Container(
+                        width: 80,
+                        height: 150,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/w1.png"),
+                              //fit: BoxFit.cover
+                            )
+                        ),
+                      ),
+                    ],
+                  ),
+                  Center(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          'Sign In',
+                          style: GoogleFonts.nunito(
+                              fontSize: 40,
+                              fontWeight: FontWeight.w600
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              // SizedBox(
+              //   height: 50,
+              // ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(30,8,30,8),
+                child: TextField(
+                  controller: EmailController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    hintText: 'Email',
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5))),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: PasswordController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                    labelText: 'Password',
-                    hintText: 'Enter Your Password',
-                    icon: Icon(Icons.person),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5))),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: Center(
-                child: RaisedButton(
-                  onPressed: () {
-                    setState(() {
-                      username = IDController.text;
-                      password = PasswordController.text;
-                      new LoginManager().signUp(username, password);
-                      print(username);
-                      print(password);
-                      pageModel.changePageId(1);
-                    });
-                  },
-                  child: Text('Login'),
+                      borderSide: new BorderSide(color: Colors.teal),
+                      borderRadius: BorderRadius.circular(25),
+                    ),),
                 ),
               ),
-            ),
-
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: Center(
-                child: RaisedButton(
-                  onPressed: () {
-                    setState(() {
-                      pageModel.changePageId(5);
-                    });
-                  },
-                  child: Text('first page'),
+              Padding(
+                padding: EdgeInsets.fromLTRB(30,8,30,8),
+                child: TextField(
+                  controller: PasswordController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    hintText: 'Password',
+                    border: OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.teal),
+                      borderRadius: BorderRadius.circular(25),
+                    ),),
                 ),
               ),
-            ),
-            // Text(username + password)
-          ],
+              SizedBox(
+                height: 80,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 280,
+                  ),
+                  Container(
+                    width: 120,
+                    height: 150,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/m1.png"),
+                          //fit: BoxFit.cover
+                        )
+                    ),
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    password = PasswordController.text;
+                    email = EmailController.text;
+                    pageModel.changePageId(2);
+                  });
+                },
+                child: Container(
+                  //width: 500,
+                  height: 60,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/signin.png"),
+                        // fit: BoxFit.cover
+                      )
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account?",
+                    style: GoogleFonts.nunito(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      pageModel.changePageId(6);
+                    },
+                    child: Text(
+                      'Sign Up',
+                      style: GoogleFonts.nunito(
+                        color: Color(0xff007AFF),
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

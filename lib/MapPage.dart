@@ -8,6 +8,17 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              height: 150,
+              color: Color(0xffFFE99C),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

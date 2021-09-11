@@ -18,19 +18,19 @@ class _MainPageState extends State<MainPage> {
 
   // This widget is the root of your application.
   //pageId
-  // 0 : LoginPage
+  // 0 : FirstPage
   // 1 : SurveyPage
   // 2 : MapPage
   // 3 : QuestPage
   // 4 : ChatPage
-  // 5 : FirstPage
+  // 5 : LoginPage
 
   @override
   Widget build(BuildContext context) {
     PageModel pageModel = context.watch<PageModel>();
     return MaterialApp(
       home: (pageModel.pageId == 0)
-          ? LoginPage()
+          ? FirstPage()
           : (pageModel.pageId == 1)
               ? SurveyPage()
               : (pageModel.pageId == 2)
@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
                       : (pageModel.pageId == 4)
                         ? ChatPage()
                         :(pageModel.pageId == 5)
-                          ? FirstPage()
+                          ? LoginPage()
                           : signupPage()
     );
   }

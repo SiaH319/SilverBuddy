@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pageModel.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/src/provider.dart';
 
 class signupPage extends StatefulWidget {
@@ -10,88 +12,166 @@ class signupPage extends StatefulWidget {
 }
 
 class _signupPageState extends State<signupPage> {
-  TextEditingController IDController = new TextEditingController();
+  TextEditingController NameController = new TextEditingController();
+  TextEditingController EmailController = new TextEditingController();
   TextEditingController PasswordController = new TextEditingController();
-  var username;
+  var name;
   var password;
+  var email;
   @override
   Widget build(BuildContext context) {
     PageModel pageModel = context.watch<PageModel>();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 200,
-            ),
-            Container(
-              height: 50,
-              width: 300,
-              child: Center(child: Text('Sign up')),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black)
+        child: Container(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 100,
               ),
-            ),
-            SizedBox(
-              height: 150,
-            ),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: IDController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                    labelText: 'user account',
-                    hintText: 'Enter Email Address',
-                    icon: Icon(Icons.person),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5))),
+              Stack(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(width: 30,),
+                      Container(
+                        width: 80,
+                        height: 150,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage("assets/w1.png"),
+                                //fit: BoxFit.cover
+                            )
+                        ),
+                      ),
+                    ],
+                  ),
+                  Center(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          'Sign Up',
+                          style: GoogleFonts.nunito(
+                              fontSize: 40,
+                              fontWeight: FontWeight.w600
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: TextField(
-                controller: PasswordController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                    labelText: 'Password',
-                    hintText: 'Enter Your Password',
-                    icon: Icon(Icons.person),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5))),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: Center(
-                child: RaisedButton(
-                  onPressed: () {
-                    setState(() {
-                      username = IDController.text;
-                      password = PasswordController.text;
-
-                    });
-                  },
-                  child: Text('sign up'),
+              // SizedBox(
+              //   height: 50,
+              // ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(30,8,30,8),
+                child: TextField(
+                  controller: NameController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                      hintText: 'Name',
+                      border: OutlineInputBorder(
+                          borderSide: new BorderSide(color: Colors.teal),
+                          borderRadius: BorderRadius.circular(25),
+                      ),),
                 ),
               ),
-            ),
-
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: Center(
-                child: RaisedButton(
-                  onPressed: () {
-                    setState(() {
+              Padding(
+                padding: EdgeInsets.fromLTRB(30,8,30,8),
+                child: TextField(
+                  controller: EmailController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    border: OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.teal),
+                      borderRadius: BorderRadius.circular(25),
+                    ),),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(30,8,30,8),
+                child: TextField(
+                  controller: PasswordController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    hintText: 'Password',
+                    border: OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.teal),
+                      borderRadius: BorderRadius.circular(25),
+                    ),),
+                ),
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 280,
+                  ),
+                  Container(
+                    width: 120,
+                    height: 150,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/m1.png"),
+                          //fit: BoxFit.cover
+                        )
+                    ),
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTap: (){
+                  setState(() {
+                    name = NameController.text;
+                    password = PasswordController.text;
+                    email = EmailController.text;
+                   // pageModel.changePageId(6);
+                  });
+                },
+                child: Container(
+                  //width: 500,
+                  height: 60,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/signup.png"),
+                        // fit: BoxFit.cover
+                      )
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Already have an account?',
+                    style: GoogleFonts.nunito(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
                       pageModel.changePageId(5);
-                    });
-                  },
-                  child: Text('first page'),
-                ),
-              ),
-            ),
-            // Text(username + password)
-          ],
+                    },
+                    child: Text(
+                      'Sign In',
+                      style: GoogleFonts.nunito(
+                        color: Color(0xff007AFF),
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

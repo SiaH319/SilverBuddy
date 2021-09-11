@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pageModel.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/src/provider.dart';
 
 class FirstPage extends StatefulWidget {
@@ -14,46 +16,72 @@ class _FirstPageState extends State<FirstPage> {
     return Scaffold(
       body: SafeArea(
         child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/img.png"),
+                  fit: BoxFit.cover
+              )
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-                height: 200,
+                height: 150,
               ),
-              Center(
-                child: Container(
-                  height: 75,
-                  width: 100,
-                  color: Colors.red,
-                  child: Center(child: Text('Logo?', style: TextStyle(color: Colors.white,fontSize: 20),)),
-                ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 65,
+                  ),
+                  Text(
+                    'Silver\nBuddy',
+                    style: GoogleFonts.nunito(
+                    fontSize: 60,
+                    color: Colors.black,
+                  fontWeight: FontWeight.bold
+                  ),),
+                ],
               ),
               SizedBox(
-                height: 200,
+                height: 270,
               ),
               Padding(
-                padding: EdgeInsets.all(8),
-                child: Center(
-                  child: RaisedButton(
-                    onPressed: () {
-                      setState(() {
-                        pageModel.changePageId(6);
-                      });
-                    },
-                    child: Text('Sign Up'),
+                padding:  EdgeInsets.fromLTRB(100,0,0,0),
+                child: GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      pageModel.changePageId(6);
+                    });
+                  },
+                  child: Container(
+                    //width: 500,
+                    height: 60,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/signup.png"),
+                           // fit: BoxFit.cover
+                        )
+                    ),
                   ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8),
-                child: Center(
-                  child: RaisedButton(
-                    onPressed: () {
-                      setState(() {
-                        pageModel.changePageId(0);
-                      });
-                    },
-                    child: Text('Sing in'),
+                padding:  EdgeInsets.fromLTRB(100,0,0,0),
+                child: GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      pageModel.changePageId(5);
+                    });
+                  },
+                  child: Container(
+                    //width: 500,
+                    height: 60,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/signin.png"),
+                          // fit: BoxFit.cover
+                        )
+                    ),
                   ),
                 ),
               ),
