@@ -23,6 +23,7 @@ class _ChatScreenState extends State<ChatPage> {
   final _auth = FirebaseAuth.instance;
   final textController = TextEditingController();
   late String text;
+  String myUrl = "";
   @override
   void initState() {
     // TODO: implement initState
@@ -36,6 +37,11 @@ class _ChatScreenState extends State<ChatPage> {
       if (user != null) {
         loggedInUser = user;
         print(loggedInUser!.email);
+        _store
+            .collection('users')
+            .where('uid', isEqualTo: loggedInUser!.uid)
+            .get()
+            .then((value) => myUrl = value.docs[0].data()['profileImage']);
       }
     } catch (e) {
       print(e);
@@ -63,7 +69,7 @@ class _ChatScreenState extends State<ChatPage> {
         height: 50,
         width: 100,
         color: Colors.red,
-      ) ,
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,16 +82,13 @@ class _ChatScreenState extends State<ChatPage> {
               child: Center(
                 child: Text(
                   'GROUP CHAT (4)',
-                  style: GoogleFonts.nunito(
-                    fontWeight: FontWeight.bold
-
-                  ),
+                  style: GoogleFonts.nunito(fontWeight: FontWeight.bold),
                 ),
               ),
             ),
             MessageStream(),
             Padding(
-              padding:  EdgeInsets.fromLTRB(30,0,30,10),
+              padding: EdgeInsets.fromLTRB(30, 0, 30, 10),
               child: Container(
                 decoration: kMessageContainerDecoration,
                 child: Row(
@@ -96,16 +99,16 @@ class _ChatScreenState extends State<ChatPage> {
                     ),
                     Column(
                       children: [
-                        SizedBox(height: 3,),
+                        SizedBox(
+                          height: 3,
+                        ),
                         Container(
                           width: 30,
                           height: 30,
                           decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/plus.png'),
-                              fit: BoxFit.cover
-                            )
-                          ),
+                              image: DecorationImage(
+                                  image: AssetImage('assets/plus.png'),
+                                  fit: BoxFit.cover)),
                         ),
                       ],
                     ),
@@ -121,16 +124,16 @@ class _ChatScreenState extends State<ChatPage> {
                     ),
                     Column(
                       children: [
-                        SizedBox(height: 3,),
+                        SizedBox(
+                          height: 3,
+                        ),
                         Container(
                           width: 20,
                           height: 20,
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage('assets/smile.png'),
-                                  fit: BoxFit.cover
-                              )
-                          ),
+                                  fit: BoxFit.cover)),
                         ),
                       ],
                     ),
@@ -142,6 +145,7 @@ class _ChatScreenState extends State<ChatPage> {
                           'text': text,
                           'sender': loggedInUser!.email,
                           'time_server': FieldValue.serverTimestamp(),
+                          'url': myUrl,
                         });
                       },
                       child: Text(
@@ -181,11 +185,12 @@ class MessageStream extends StatelessWidget {
         for (var message in messages) {
           final text = message['text'];
           final sender = message['sender'];
-
+          final url = message['url'];
           final messageBubble = MessageBubble(
             fromCurrentuser: sender == loggedInUser!.email,
             text: text,
             sender: sender,
+            url: url,
           );
           messageBubbles.add(messageBubble);
         }
@@ -201,11 +206,14 @@ class MessageStream extends StatelessWidget {
 }
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble(
-      {required this.sender,
-      required this.text,
-      required this.fromCurrentuser});
+  MessageBubble({
+    required this.sender,
+    required this.text,
+    required this.fromCurrentuser,
+    required this.url,
+  });
   final String sender;
+  final String url;
   final String text;
   final bool fromCurrentuser;
   @override
@@ -217,11 +225,14 @@ class MessageBubble extends StatelessWidget {
             ? MainAxisAlignment.start
             : MainAxisAlignment.end,
         children: [
-          (!fromCurrentuser) ? CircleAvatar() : Container(),
+          (!fromCurrentuser)
+              ? CircleAvatar(
+                  backgroundImage: NetworkImage(url),
+                )
+              : Container(),
           Container(
             width: 5,
           ),
-
           Column(
             crossAxisAlignment: fromCurrentuser
                 ? CrossAxisAlignment.end
@@ -244,8 +255,7 @@ class MessageBubble extends StatelessWidget {
                         topRight: Radius.circular(30.0),
                         bottomLeft: Radius.circular(30.0),
                         bottomRight: Radius.circular(30.0)),
-                color: fromCurrentuser?  Color(0xff83A2EF)
-                : Color(0xffFFE99C),
+                color: fromCurrentuser ? Color(0xff83A2EF) : Color(0xffFFE99C),
                 elevation: 10.0,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -253,7 +263,7 @@ class MessageBubble extends StatelessWidget {
                   child: Text(
                     text,
                     style: TextStyle(
-                      color: fromCurrentuser ?  Colors.white : Colors.black,
+                      color: fromCurrentuser ? Colors.white : Colors.black,
                       fontSize: 15.0,
                     ),
                   ),
@@ -261,7 +271,6 @@ class MessageBubble extends StatelessWidget {
               )
             ],
           ),
-
           Container(
             width: 5,
           ),
@@ -274,17 +283,25 @@ class MessageBubble extends StatelessWidget {
                         .pickImage(source: ImageSource.gallery);
                     File imageFile = File(image!.path);
                     String filePath = image.name;
-                    await FirebaseStorage.instance
+                    TaskSnapshot task = await FirebaseStorage.instance
                         .ref('profileImages/$filePath')
                         .putFile(imageFile);
-                    _store
-                        .collection('users')
-                        .where('userId', isEqualTo: loggedInUser!.uid)
-                        .get()
-                        .then(
-                            (value) => print(value.docs.first['profileImage']));
+                    task.ref.getDownloadURL().then(
+                          (url) => _store
+                              .collection('users')
+                              .where('uid', isEqualTo: loggedInUser!.uid)
+                              .get()
+                              .then(
+                                (value) => value.docs[0].reference.get().then(
+                                      (value) => value.reference
+                                          .update({'profileImage': url}),
+                                    ),
+                              ),
+                        );
                   },
-                  child: CircleAvatar(),
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(url),
+                  ),
                 )
               : Container(),
         ],
