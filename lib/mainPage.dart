@@ -15,7 +15,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
   // This widget is the root of your application.
   //pageId
   // 0 : FirstPage
@@ -29,19 +28,18 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     PageModel pageModel = context.watch<PageModel>();
     return MaterialApp(
-      home: (pageModel.pageId == 0)
-          ? FirstPage()
-          : (pageModel.pageId == 1)
-              ? SurveyPage()
-              : (pageModel.pageId == 2)
-                  ? MapPage()
-                  : (pageModel.pageId == 3)
-                      ? QuestPage()
-                      : (pageModel.pageId == 4)
-                        ? ChatPage()
-                        :(pageModel.pageId == 5)
-                          ? LoginPage()
-                          : signupPage()
-    );
+        home: (pageModel.pageId == 0)
+            ? FirstPage()
+            : (pageModel.pageId == 1)
+                ? SurveyPage()
+                : (pageModel.pageId == 2)
+                    ? MapPage()
+                    : (pageModel.pageId == 3)
+                        ? QuestPage()
+                        : (pageModel.pageId == 4)
+                            ? ChatPage()
+                            : (pageModel.pageId == 5)
+                                ? LoginPage()
+                                : signupPage());
   }
 }

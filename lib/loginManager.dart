@@ -2,16 +2,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginManager {
   FirebaseAuth auth = FirebaseAuth.instance;
-
-  void signUp(String email, String password) {
+  Future<String> signUp(String email, String password) async {
     try {
-      auth.createUserWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (e) {}
+      UserCredential cred = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      return (cred.user!.uid);
+    } on FirebaseAuthException catch (e) {
+      return (e.toString());
+    }
   }
 
-  void login(String email, String password) {
+  Future<String> login(String email, String password) async {
     try {
-      auth.signInWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (e) {}
+      UserCredential credential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return (credential.user!.uid);
+    } on FirebaseAuthException catch (e) {
+      return (e.toString());
+    }
   }
 }

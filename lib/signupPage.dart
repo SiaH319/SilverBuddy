@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/loginManager.dart';
 import 'package:flutter_app/pageModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/src/provider.dart';
@@ -34,16 +36,17 @@ class _signupPageState extends State<signupPage> {
                 children: [
                   Row(
                     children: [
-                      SizedBox(width: 30,),
+                      SizedBox(
+                        width: 30,
+                      ),
                       Container(
                         width: 80,
                         height: 150,
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: AssetImage("assets/w1.png"),
-                                //fit: BoxFit.cover
-                            )
-                        ),
+                          image: AssetImage("assets/w1.png"),
+                          //fit: BoxFit.cover
+                        )),
                       ),
                     ],
                   ),
@@ -56,9 +59,7 @@ class _signupPageState extends State<signupPage> {
                         Text(
                           'Sign Up',
                           style: GoogleFonts.nunito(
-                              fontSize: 40,
-                              fontWeight: FontWeight.w600
-                          ),
+                              fontSize: 40, fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -70,20 +71,21 @@ class _signupPageState extends State<signupPage> {
               //   height: 50,
               // ),
               Padding(
-                padding: EdgeInsets.fromLTRB(30,8,30,8),
+                padding: EdgeInsets.fromLTRB(30, 8, 30, 8),
                 child: TextField(
                   controller: NameController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                      hintText: 'Name',
-                      border: OutlineInputBorder(
-                          borderSide: new BorderSide(color: Colors.teal),
-                          borderRadius: BorderRadius.circular(25),
-                      ),),
+                    hintText: 'Name',
+                    border: OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.teal),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                  ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(30,8,30,8),
+                padding: EdgeInsets.fromLTRB(30, 8, 30, 8),
                 child: TextField(
                   controller: EmailController,
                   keyboardType: TextInputType.emailAddress,
@@ -92,11 +94,12 @@ class _signupPageState extends State<signupPage> {
                     border: OutlineInputBorder(
                       borderSide: new BorderSide(color: Colors.teal),
                       borderRadius: BorderRadius.circular(25),
-                    ),),
+                    ),
+                  ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(30,8,30,8),
+                padding: EdgeInsets.fromLTRB(30, 8, 30, 8),
                 child: TextField(
                   controller: PasswordController,
                   keyboardType: TextInputType.emailAddress,
@@ -105,7 +108,8 @@ class _signupPageState extends State<signupPage> {
                     border: OutlineInputBorder(
                       borderSide: new BorderSide(color: Colors.teal),
                       borderRadius: BorderRadius.circular(25),
-                    ),),
+                    ),
+                  ),
                 ),
               ),
               Row(
@@ -118,20 +122,23 @@ class _signupPageState extends State<signupPage> {
                     height: 150,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/m1.png"),
-                          //fit: BoxFit.cover
-                        )
-                    ),
+                      image: AssetImage("assets/m1.png"),
+                      //fit: BoxFit.cover
+                    )),
                   ),
                 ],
               ),
               GestureDetector(
-                onTap: (){
-                  setState(() {
+                onTap: () {
+                  setState(() async {
                     name = NameController.text;
                     password = PasswordController.text;
                     email = EmailController.text;
-                   // pageModel.changePageId(6);
+                    String uid = await LoginManager().signUp(email, password);
+                    FirebaseFirestore.instance
+                        .collection('users')
+                        .add({'email': email, 'username': name, 'uid': uid});
+                    // pageModel.changePageId(6);
                   });
                 },
                 child: Container(
@@ -139,10 +146,9 @@ class _signupPageState extends State<signupPage> {
                   height: 60,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/signup.png"),
-                        // fit: BoxFit.cover
-                      )
-                  ),
+                    image: AssetImage("assets/signup.png"),
+                    // fit: BoxFit.cover
+                  )),
                 ),
               ),
               SizedBox(
@@ -158,7 +164,7 @@ class _signupPageState extends State<signupPage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       pageModel.changePageId(5);
                     },
                     child: Text(
