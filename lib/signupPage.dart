@@ -138,7 +138,7 @@ class _signupPageState extends State<signupPage> {
                     FirebaseFirestore.instance
                         .collection('users')
                         .add({'email': email, 'username': name, 'uid': uid});
-                    pageModel.changePageId(4);
+                    pageModel.changePageId(4);zzz
                   });
                 },
                 child: Container(
