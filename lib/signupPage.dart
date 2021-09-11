@@ -138,7 +138,7 @@ class _signupPageState extends State<signupPage> {
                     FirebaseFirestore.instance
                         .collection('users')
                         .add({'email': email, 'username': name, 'uid': uid});
-                    pageModel.changePageId(4);
+                    pageModel.changePageId(1);
                   });
                 },
                 child: Container(
@@ -146,7 +146,7 @@ class _signupPageState extends State<signupPage> {
                   height: 60,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                    image: AssetImage("assets/signup.png"),
+                    image: AssetImage("assets/signup2.png"),
                     // fit: BoxFit.cover
                   )),
                 ),

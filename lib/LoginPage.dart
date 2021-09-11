@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 60,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                    image: AssetImage("assets/signin.png"),
+                    image: AssetImage("assets/signin2.png"),
                     // fit: BoxFit.cover
                   )),
                 ),

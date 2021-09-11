@@ -18,7 +18,7 @@ class _FirstPageState extends State<FirstPage> {
         child: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/img.png"),
+                  image: AssetImage("assets/img_1.png"),
                   fit: BoxFit.cover
               )
           ),
@@ -37,7 +37,7 @@ class _FirstPageState extends State<FirstPage> {
                     'Silver\nBuddy',
                     style: GoogleFonts.nunito(
                     fontSize: 60,
-                    color: Colors.black,
+                    color: Colors.white,
                   fontWeight: FontWeight.bold
                   ),),
                 ],
@@ -58,7 +58,7 @@ class _FirstPageState extends State<FirstPage> {
                     height: 60,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage("assets/signup.png"),
+                            image: AssetImage("assets/signup1.png"),
                            // fit: BoxFit.cover
                         )
                     ),
@@ -78,7 +78,7 @@ class _FirstPageState extends State<FirstPage> {
                     height: 60,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/signin.png"),
+                          image: AssetImage("assets/signin1.png"),
                           // fit: BoxFit.cover
                         )
                     ),
