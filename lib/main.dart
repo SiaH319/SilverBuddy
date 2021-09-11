@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/ChatPage.dart';
+import 'package:flutter_app/LoginPage.dart';
+import 'package:flutter_app/MapPage.dart';
+import 'package:flutter_app/QuestPage.dart';
+import 'package:flutter_app/SurveyPage.dart';
+import 'package:provider/provider.dart';
+
+import 'pageModel.dart';
 
 void main() {
   runApp(MyApp());
@@ -6,10 +14,28 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  //pageId
+  // 0 : LoginPage
+  // 1 : SurveyPage
+  // 2 : MapPage
+  // 3 : QuestPage
+  // 4 : ChatPage
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      //home: LoginPage(),
+    PageModel pageModel = new PageModel();
+    return ChangeNotifierProvider.value(
+      value: pageModel,
+      child: MaterialApp(
+        home: (pageModel.pageId == 0)
+            ? LoginPage()
+            : (pageModel.pageId == 1)
+                ? SurveyPage()
+                : (pageModel.pageId == 2)
+                    ? MapPage()
+                    : (pageModel.pageId == 3)
+                        ? QuestPage()
+                        : ChatPage(),
+      ),
     );
   }
 }
