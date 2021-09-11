@@ -8,6 +8,8 @@ class SurveyPage extends StatefulWidget {
 class _SurveyPageState extends State<SurveyPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      color: Colors.white,
+    );
   }
 }

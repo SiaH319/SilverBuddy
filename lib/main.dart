@@ -1,14 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/ChatPage.dart';
-import 'package:flutter_app/LoginPage.dart';
-import 'package:flutter_app/MapPage.dart';
-import 'package:flutter_app/QuestPage.dart';
-import 'package:flutter_app/SurveyPage.dart';
+import 'package:flutter_app/mainPage.dart';
 import 'package:provider/provider.dart';
 
 import 'pageModel.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Add this
+
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -25,17 +25,7 @@ class MyApp extends StatelessWidget {
     PageModel pageModel = new PageModel();
     return ChangeNotifierProvider.value(
       value: pageModel,
-      child: MaterialApp(
-        home: (pageModel.pageId == 0)
-            ? LoginPage()
-            : (pageModel.pageId == 1)
-                ? SurveyPage()
-                : (pageModel.pageId == 2)
-                    ? MapPage()
-                    : (pageModel.pageId == 3)
-                        ? QuestPage()
-                        : ChatPage(),
-      ),
+      child: MainPage(),
     );
   }
 }

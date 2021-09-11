@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/loginManager.dart';
+import 'package:flutter_app/pageModel.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   var password;
   @override
   Widget build(BuildContext context) {
+    PageModel pageModel = context.watch<PageModel>();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -25,13 +29,11 @@ class _LoginPageState extends State<LoginPage> {
                 controller: IDController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  labelText: 'user account',
-                  hintText: 'Enter Email Address',
-                  icon: Icon(Icons.person),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5)
-                  )
-                ),
+                    labelText: 'user account',
+                    hintText: 'Enter Email Address',
+                    icon: Icon(Icons.person),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5))),
               ),
             ),
             Padding(
@@ -44,32 +46,31 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'Enter Your Password',
                     icon: Icon(Icons.person),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)
-                    )
-                ),
+                        borderRadius: BorderRadius.circular(5))),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Center(
                 child: RaisedButton(
-                  onPressed: (){
+                  onPressed: () {
                     setState(() {
                       username = IDController.text;
                       password = PasswordController.text;
-                       print(username);
-                       print(password);
+                      new LoginManager().signUp(username, password);
+                      print(username);
+                      print(password);
+                      pageModel.changePageId(1);
                     });
                   },
                   child: Text('Login'),
                 ),
               ),
             ),
-           // Text(username + password)
+            // Text(username + password)
           ],
         ),
       ),
     );
   }
 }
-
