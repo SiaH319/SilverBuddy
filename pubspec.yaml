@@ -59,6 +59,9 @@ flutter:
    - assets/signin.png
    - assets/w1.png
    - assets/m1.png
+   - assets/chatbox.png
+   - assets/plus.png
+   - assets/smile.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

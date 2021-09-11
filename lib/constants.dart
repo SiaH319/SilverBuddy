@@ -13,10 +13,16 @@ const kMessageTextFieldDecoration = InputDecoration(
 );
 
 const kMessageContainerDecoration = BoxDecoration(
-  border: Border(
-    top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
-  ),
+  // border: Border(
+  //   top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+  // ),
+  image: DecorationImage(
+    image: AssetImage("assets/chatbox.png"),
+        fit: BoxFit.fill
+  )
 );
+
+
 
 const kTextFieldDecoration = InputDecoration(
   hintText: 'Enter your password.',

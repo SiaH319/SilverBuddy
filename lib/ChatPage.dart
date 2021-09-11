@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/constants.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 final _store = FirebaseFirestore.instance;
@@ -43,57 +45,112 @@ class _ChatScreenState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: null,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () {
-                //Implement logout functionality
-                _auth.signOut();
-                Navigator.pop(context);
-              }),
-        ],
-        title: Text('⚡️Chat'),
-        backgroundColor: Colors.lightBlueAccent,
-      ),
+      // appBar: AppBar(
+      //   leading: null,
+      //   actions: <Widget>[
+      //     IconButton(
+      //         icon: Icon(Icons.close),
+      //         onPressed: () {
+      //           //Implement logout functionality
+      //           _auth.signOut();
+      //           Navigator.pop(context);
+      //         }),
+      //   ],
+      //   title: Text('⚡️Chat'),
+      //   backgroundColor: Colors.lightBlueAccent,
+      // ),
+      bottomNavigationBar: Container(
+        height: 50,
+        width: 100,
+        color: Colors.red,
+      ) ,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            MessageStream(),
             Container(
-              decoration: kMessageContainerDecoration,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      controller: textController,
-                      onChanged: (value) {
-                        //Do something with the user input.
-                        text = value;
+              width: 1000,
+              height: 50,
+              color: Color(0xffFFFBEB),
+              child: Center(
+                child: Text(
+                  'GROUP CHAT (4)',
+                  style: GoogleFonts.nunito(
+                    fontWeight: FontWeight.bold
+
+                  ),
+                ),
+              ),
+            ),
+            MessageStream(),
+            Padding(
+              padding:  EdgeInsets.fromLTRB(30,0,30,10),
+              child: Container(
+                decoration: kMessageContainerDecoration,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 13,
+                    ),
+                    Column(
+                      children: [
+                        SizedBox(height: 3,),
+                        Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/plus.png'),
+                              fit: BoxFit.cover
+                            )
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: TextField(
+                        controller: textController,
+                        onChanged: (value) {
+                          //Do something with the user input.
+                          text = value;
+                        },
+                        decoration: kMessageTextFieldDecoration,
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        SizedBox(height: 3,),
+                        Container(
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/smile.png'),
+                                  fit: BoxFit.cover
+                              )
+                          ),
+                        ),
+                      ],
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        //Implement send functionality.
+                        textController.clear();
+                        _store.collection('messages').add({
+                          'text': text,
+                          'sender': loggedInUser!.email,
+                          'time_server': FieldValue.serverTimestamp(),
+                        });
                       },
-                      decoration: kMessageTextFieldDecoration,
+                      child: Text(
+                        'Send',
+                        style: kSendButtonTextStyle,
+                      ),
                     ),
-                  ),
-                  FlatButton(
-                    onPressed: () {
-                      //Implement send functionality.
-                      textController.clear();
-                      _store.collection('messages').add({
-                        'text': text,
-                        'sender': loggedInUser!.email,
-                        'time_server': FieldValue.serverTimestamp(),
-                      });
-                    },
-                    child: Text(
-                      'Send',
-                      style: kSendButtonTextStyle,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
@@ -164,18 +221,19 @@ class MessageBubble extends StatelessWidget {
           Container(
             width: 5,
           ),
+
           Column(
             crossAxisAlignment: fromCurrentuser
                 ? CrossAxisAlignment.end
                 : CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                sender,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.black54,
-                ),
-              ),
+              // Text(
+              //   sender,
+              //   style: TextStyle(
+              //     fontSize: 12.0,
+              //     color: Colors.red,
+              //   ),
+              // ),
               Material(
                 borderRadius: fromCurrentuser
                     ? BorderRadius.only(
@@ -186,7 +244,8 @@ class MessageBubble extends StatelessWidget {
                         topRight: Radius.circular(30.0),
                         bottomLeft: Radius.circular(30.0),
                         bottomRight: Radius.circular(30.0)),
-                color: Colors.white,
+                color: fromCurrentuser?  Color(0xff83A2EF)
+                : Color(0xffFFE99C),
                 elevation: 10.0,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -194,7 +253,7 @@ class MessageBubble extends StatelessWidget {
                   child: Text(
                     text,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: fromCurrentuser ?  Colors.white : Colors.black,
                       fontSize: 15.0,
                     ),
                   ),
@@ -202,6 +261,7 @@ class MessageBubble extends StatelessWidget {
               )
             ],
           ),
+
           Container(
             width: 5,
           ),
