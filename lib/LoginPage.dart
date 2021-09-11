@@ -116,10 +116,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
               GestureDetector(
                 onTap: () {
-                  setState(() {
+                  setState(() async {
                     password = PasswordController.text;
                     email = EmailController.text;
-                    LoginManager().login(email, password);
+                    await LoginManager().login(email, password);
                     pageModel.changePageId(4);
                   });
                 },
