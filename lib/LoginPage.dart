@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                     password = PasswordController.text;
                     email = EmailController.text;
                     await LoginManager().login(email, password);
-                    pageModel.changePageId(1);
+                    pageModel.changePageId(2);
                   });
                 },
                 child: Container(

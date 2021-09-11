@@ -64,6 +64,7 @@ final surveyList = [
 class _SurveyPageState extends State<SurveyPage> {
   @override
   Widget build(BuildContext context) {
+    List<String> surveyQ=['s','e','aasdfadsf'];
     PageModel pageModel = context.watch<PageModel>();
     return Scaffold(
       body: SafeArea(
@@ -71,7 +72,10 @@ class _SurveyPageState extends State<SurveyPage> {
           width: 500,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/img_2.png"), fit: BoxFit.cover)),
+                  image: AssetImage("assets/img_2.png"),
+                  fit: BoxFit.cover
+              )
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -98,6 +102,7 @@ class _SurveyPageState extends State<SurveyPage> {
                   SizedBox(
                     width: 30,
                   ),
+
                   Text(
                     'Please fill the ~~~~',
                     style: GoogleFonts.nunito(
@@ -108,71 +113,41 @@ class _SurveyPageState extends State<SurveyPage> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                child: Container(
-                  height: 100,
-                  width: 1000,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15)),
+              Container(
+                height: 530,
+                child: ListView.builder(
+                  itemCount: surveyList.length,
+                  itemBuilder:(context, i) {
+                    return  Padding(
+                      padding: const EdgeInsets.fromLTRB(30,10,30,10),
+                      child: Container(
+                        height: 100,
+                        width: 1000,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15)
+                        ),
+                        child: Text(surveyList[i]),
+                      ),
+                    );
+                  },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                child: Container(
-                  height: 100,
-                  width: 1000,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                child: Container(
-                  height: 100,
-                  width: 1000,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                child: Container(
-                  height: 100,
-                  width: 1000,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                child: Container(
-                  height: 100,
-                  width: 1000,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
+
               GestureDetector(
-                onTap: () {
+                onTap: (){
                   pageModel.changePageId(2);
-                  print('sex');
                 },
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(250, 0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(250,0,0,0),
                   child: Container(
                     //width: 500,
                     height: 60,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                      image: AssetImage("assets/next.png"),
-                      // fit: BoxFit.cover
-                    )),
+                          image: AssetImage("assets/next.png"),
+                          // fit: BoxFit.cover
+                        )),
                   ),
                 ),
               ),
