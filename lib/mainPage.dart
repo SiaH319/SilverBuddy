@@ -23,6 +23,7 @@ class _MainPageState extends State<MainPage> {
   // 3 : QuestPage
   // 4 : ChatPage
   // 5 : LoginPage
+  // 6 : SignUpPage
 
   @override
   Widget build(BuildContext context) {

@@ -33,16 +33,17 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Row(
                     children: [
-                      SizedBox(width: 30,),
+                      SizedBox(
+                        width: 30,
+                      ),
                       Container(
                         width: 80,
                         height: 150,
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/w1.png"),
-                              //fit: BoxFit.cover
-                            )
-                        ),
+                          image: AssetImage("assets/w1.png"),
+                          //fit: BoxFit.cover
+                        )),
                       ),
                     ],
                   ),
@@ -55,9 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                         Text(
                           'Sign In',
                           style: GoogleFonts.nunito(
-                              fontSize: 40,
-                              fontWeight: FontWeight.w600
-                          ),
+                              fontSize: 40, fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -69,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
               //   height: 50,
               // ),
               Padding(
-                padding: EdgeInsets.fromLTRB(30,8,30,8),
+                padding: EdgeInsets.fromLTRB(30, 8, 30, 8),
                 child: TextField(
                   controller: EmailController,
                   keyboardType: TextInputType.emailAddress,
@@ -78,11 +77,12 @@ class _LoginPageState extends State<LoginPage> {
                     border: OutlineInputBorder(
                       borderSide: new BorderSide(color: Colors.teal),
                       borderRadius: BorderRadius.circular(25),
-                    ),),
+                    ),
+                  ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(30,8,30,8),
+                padding: EdgeInsets.fromLTRB(30, 8, 30, 8),
                 child: TextField(
                   controller: PasswordController,
                   keyboardType: TextInputType.emailAddress,
@@ -91,7 +91,8 @@ class _LoginPageState extends State<LoginPage> {
                     border: OutlineInputBorder(
                       borderSide: new BorderSide(color: Colors.teal),
                       borderRadius: BorderRadius.circular(25),
-                    ),),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(
@@ -107,19 +108,19 @@ class _LoginPageState extends State<LoginPage> {
                     height: 150,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/m1.png"),
-                          //fit: BoxFit.cover
-                        )
-                    ),
+                      image: AssetImage("assets/m1.png"),
+                      //fit: BoxFit.cover
+                    )),
                   ),
                 ],
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   setState(() {
                     password = PasswordController.text;
                     email = EmailController.text;
-                    pageModel.changePageId(2);
+                    LoginManager().login(email, password);
+                    pageModel.changePageId(4);
                   });
                 },
                 child: Container(
@@ -127,10 +128,9 @@ class _LoginPageState extends State<LoginPage> {
                   height: 60,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/signin.png"),
-                        // fit: BoxFit.cover
-                      )
-                  ),
+                    image: AssetImage("assets/signin.png"),
+                    // fit: BoxFit.cover
+                  )),
                 ),
               ),
               SizedBox(
@@ -146,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       pageModel.changePageId(6);
                     },
                     child: Text(

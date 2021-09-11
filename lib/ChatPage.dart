@@ -209,6 +209,7 @@ class MessageBubble extends StatelessWidget {
               ? GestureDetector(
                   onTap: () async {
                     print('dada');
+                    print(loggedInUser!.uid);
                     XFile? image = await new ImagePicker()
                         .pickImage(source: ImageSource.gallery);
                     File imageFile = File(image!.path);
