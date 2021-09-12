@@ -90,6 +90,8 @@ flutter:
    - assets/w4.png
    - assets/w5.png
    - assets/join.png
+   - assets/Survey1.png
+   - assets/Survey2.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

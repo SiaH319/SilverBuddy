@@ -99,7 +99,8 @@ class _SurveyPageState extends State<SurveyPage> {
           width: 1000,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/Survey.png"), fit: BoxFit.cover)),
+                  image: AssetImage("assets/Survey2.png"),
+                  fit: BoxFit.cover)),
           child: Column(
 //            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
