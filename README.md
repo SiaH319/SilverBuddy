@@ -1,6 +1,6 @@
 # Silver Buddy
 
-Our application is to reduce social isolation in the elderly population by creating a mobile app that increases one-on-one and group interactions by rewarding social behaviour. 
+Our application "Sliver Buddy" is to reduce social isolation in the elderly population by creating a mobile app that increases one-on-one and group interactions by rewarding social behaviour. 
 <br><br><br>
 <i>This project was a part of [MedHacks2021](https://devpost.com/software/silver-buddy).</i><br><br><br>
 [<img src="youtube.JPG" width="70%">](https://www.youtube.com/watch?v=T0a3KD05PdQ)
