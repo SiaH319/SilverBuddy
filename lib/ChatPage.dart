@@ -66,9 +66,41 @@ class _ChatScreenState extends State<ChatPage> {
       //   backgroundColor: Colors.lightBlueAccent,
       // ),
       bottomNavigationBar: Container(
-        height: 50,
+        height: 90,
         width: 100,
-        color: Colors.red,
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(40,0,40,0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 41,
+                height: 41,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/back.png'),
+                        fit: BoxFit.cover)),
+              ),
+              Container(
+                width: 41,
+                height: 41,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/menu.png'),
+                        fit: BoxFit.cover)),
+              ),
+              Container(
+                width: 41,
+                height: 41,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/profile.png'),
+                        fit: BoxFit.cover)),
+              ),
+            ],
+          ),
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -78,7 +110,7 @@ class _ChatScreenState extends State<ChatPage> {
             Container(
               width: 1000,
               height: 50,
-              color: Color(0xffFFFBEB),
+              color: Color(0xff712EFF).withOpacity(0.1),
               child: Center(
                 child: Text(
                   'GROUP CHAT (4)',
@@ -107,7 +139,7 @@ class _ChatScreenState extends State<ChatPage> {
                           height: 30,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('assets/plus.png'),
+                                  image: AssetImage('assets/plus1.png'),
                                   fit: BoxFit.cover)),
                         ),
                       ],
@@ -121,6 +153,7 @@ class _ChatScreenState extends State<ChatPage> {
                         },
                         decoration: kMessageTextFieldDecoration,
                       ),
+
                     ),
                     Column(
                       children: [
@@ -137,8 +170,11 @@ class _ChatScreenState extends State<ChatPage> {
                         ),
                       ],
                     ),
-                    FlatButton(
-                      onPressed: () {
+                    SizedBox(
+                      width: 15,
+                    ),
+                    GestureDetector(
+                      onTap: (){
                         //Implement send functionality.
                         textController.clear();
                         _store.collection('messages').add({
@@ -148,11 +184,42 @@ class _ChatScreenState extends State<ChatPage> {
                           'url': myUrl,
                         });
                       },
-                      child: Text(
-                        'Send',
-                        style: kSendButtonTextStyle,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 3,
+                          ),
+                          Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/send.png'),
+                                    fit: BoxFit.cover)),
+                          ),
+                        ],
                       ),
+
                     ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    // FlatButton(
+                    //   onPressed: () {
+                    //     //Implement send functionality.
+                    //     textController.clear();
+                    //     _store.collection('messages').add({
+                    //       'text': text,
+                    //       'sender': loggedInUser!.email,
+                    //       'time_server': FieldValue.serverTimestamp(),
+                    //       'url': myUrl,
+                    //     });
+                    //   },
+                    //   child: Text(
+                    //     'Send',
+                    //     style: kSendButtonTextStyle,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

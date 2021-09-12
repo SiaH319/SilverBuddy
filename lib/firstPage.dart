@@ -31,22 +31,22 @@ class _FirstPageState extends State<FirstPage> {
               Row(
                 children: [
                   SizedBox(
-                    width: 65,
+                    width: 35,
                   ),
                   Text(
-                    'Silver\nBuddy',
+                    'Silver\n  Buddy',
                     style: GoogleFonts.nunito(
-                    fontSize: 60,
+                    fontSize: 80,
                     color: Colors.white,
-                  fontWeight: FontWeight.bold
+                  fontWeight: FontWeight.w900
                   ),),
                 ],
               ),
               SizedBox(
-                height: 270,
+                height: 170,
               ),
               Padding(
-                padding:  EdgeInsets.fromLTRB(100,0,0,0),
+                padding:  EdgeInsets.fromLTRB(160,0,0,0),
                 child: GestureDetector(
                   onTap: (){
                     setState(() {
@@ -66,7 +66,7 @@ class _FirstPageState extends State<FirstPage> {
                 ),
               ),
               Padding(
-                padding:  EdgeInsets.fromLTRB(100,0,0,0),
+                padding:  EdgeInsets.fromLTRB(160,0,0,0),
                 child: GestureDetector(
                   onTap: (){
                     setState(() {
