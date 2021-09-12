@@ -78,11 +78,27 @@ class _MapPageState extends State<MapPage> {
                               SizedBox(
                                 width: 10,
                               ),
-                              Text('Current Location',
+                              Text('Current Location                       My Star  ',
                               style: GoogleFonts.nunito(
                                 color: Colors.white,
                                 fontSize: 15,
                               ),),
+                              Container(
+                                width: 20,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                  // color: Colors.red,
+                                    image: DecorationImage(
+                                      image: AssetImage("assets/star.png"),
+                                      // fit: BoxFit.fill
+                                    )
+                                ),
+                              ),
+                              Text(' x 8',
+                                style: GoogleFonts.nunito(
+                                  color: Color(0xffFFE589),
+                                  fontSize: 15,
+                                ),),
                             ],
                           ),
                      //   MyStatelessWidget(),
@@ -158,6 +174,30 @@ class _MapPageState extends State<MapPage> {
                               width: 1000,
                               child: Stack(
                                 children: [
+                                  Positioned(
+                                    top: 390,
+                                    left: 220,
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width: 20,
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            // color: Colors.red,
+                                              image: DecorationImage(
+                                                image: AssetImage("assets/star.png"),
+                                                // fit: BoxFit.fill
+                                              )
+                                          ),
+                                        ),
+                                        Text(' X 5',
+                                          style: GoogleFonts.nunito(
+                                            color: Color(0xffFFE589),
+                                            fontSize: 15,
+                                          ),),
+                                      ],
+                                    ),
+                                  ),
                                   Positioned(
                                     child: Container(
                                       width: 100,
