@@ -85,6 +85,26 @@ class _FirstPageState extends State<FirstPage> {
                   ),
                 ),
               ),
+              Padding(
+                padding:  EdgeInsets.fromLTRB(160,0,0,0),
+                child: GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      pageModel.changePageId(5);
+                    });
+                  },
+                  child: Container(
+                    //width: 500,
+                    height: 55,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/google.png"),
+                          // fit: BoxFit.cover
+                        )
+                    ),
+                  ),
+                ),
+              ),
 
             ],
           ),

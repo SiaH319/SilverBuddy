@@ -109,7 +109,7 @@ class _ChatScreenState extends State<ChatPage> {
               color: Color(0xff712EFF).withOpacity(0.1),
               child: Center(
                 child: Text(
-                  'GROUP CHAT (4)',
+                  'GROUP CHAT (5)',
                   style: GoogleFonts.nunito(fontWeight: FontWeight.bold),
                 ),
               ),
