@@ -73,6 +73,8 @@ final surveyList = [
 ];
 
 class _SurveyPageState extends State<SurveyPage> {
+  String? profileurl;
+
   final _auth = FirebaseAuth.instance;
   void GetCurrentUser() async {
     try {
@@ -154,28 +156,36 @@ class _SurveyPageState extends State<SurveyPage> {
                   TaskSnapshot task = await FirebaseStorage.instance
                       .ref('profileImages/$filePath')
                       .putFile(imageFile);
-                  task.ref.getDownloadURL().then(
-                        (url) => _store
-                            .collection('users')
-                            .where('uid', isEqualTo: loggedInUser!.uid)
-                            .get()
-                            .then(
-                              (value) => value.docs[0].reference.get().then(
-                                    (value) => value.reference
-                                        .update({'profileImage': url}),
-                                  ),
-                            ),
-                      );
+                  task.ref.getDownloadURL().then((url) {
+                    _store
+                        .collection('users')
+                        .where('uid', isEqualTo: loggedInUser!.uid)
+                        .get()
+                        .then(
+                          (value) => value.docs[0].reference.get().then(
+                                (value) => value.reference
+                                    .update({'profileImage': url}),
+                              ),
+                        );
+                    setState(() {
+                      profileurl = url;
+                    });
+                  });
                 },
-                child: CircleAvatar(
-                  radius: 45,
-                  backgroundColor: Colors.grey,
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 60,
-                  ),
-                ),
+                child: (profileurl == null)
+                    ? CircleAvatar(
+                        radius: 45,
+                        backgroundColor: Colors.grey,
+                        child: Icon(
+                          Icons.person,
+                          color: Colors.white,
+                          size: 60,
+                        ),
+                      )
+                    : CircleAvatar(
+                        radius: 45,
+                        backgroundImage: NetworkImage(profileurl!),
+                      ),
               ),
               Container(
                 height: 15,
