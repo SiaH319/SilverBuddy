@@ -87,7 +87,6 @@ class _SurveyPageState extends State<SurveyPage> {
     // TODO: implement initState
     super.initState();
     GetCurrentUser();
-
   }
 
   @override
