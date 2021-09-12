@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pageModel.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/src/provider.dart';
 
 final _store = FirebaseFirestore.instance;
@@ -98,8 +102,7 @@ class _SurveyPageState extends State<SurveyPage> {
           width: 1000,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/Survey2.png"),
-                  fit: BoxFit.cover)),
+                  image: AssetImage("assets/Survey2.png"), fit: BoxFit.cover)),
           child: Column(
 //            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -140,10 +143,39 @@ class _SurveyPageState extends State<SurveyPage> {
               Container(
                 height: 15,
               ),
-              CircleAvatar(
-                radius: 45,
-                backgroundColor: Colors.grey,
-                child: Icon(Icons.person,color: Colors.white,size: 60,),
+              GestureDetector(
+                onTap: () async {
+                  print('dada');
+                  print(loggedInUser!.uid);
+                  XFile? image = await new ImagePicker()
+                      .pickImage(source: ImageSource.gallery);
+                  File imageFile = File(image!.path);
+                  String filePath = image.name;
+                  TaskSnapshot task = await FirebaseStorage.instance
+                      .ref('profileImages/$filePath')
+                      .putFile(imageFile);
+                  task.ref.getDownloadURL().then(
+                        (url) => _store
+                            .collection('users')
+                            .where('uid', isEqualTo: loggedInUser!.uid)
+                            .get()
+                            .then(
+                              (value) => value.docs[0].reference.get().then(
+                                    (value) => value.reference
+                                        .update({'profileImage': url}),
+                                  ),
+                            ),
+                      );
+                },
+                child: CircleAvatar(
+                  radius: 45,
+                  backgroundColor: Colors.grey,
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 60,
+                  ),
+                ),
               ),
               Container(
                 height: 15,

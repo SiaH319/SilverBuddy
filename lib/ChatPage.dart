@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 
 final _store = FirebaseFirestore.instance;
 User? loggedInUser;
@@ -70,7 +66,7 @@ class _ChatScreenState extends State<ChatPage> {
         width: 100,
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(40,0,40,0),
+          padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -153,7 +149,6 @@ class _ChatScreenState extends State<ChatPage> {
                         },
                         decoration: kMessageTextFieldDecoration,
                       ),
-
                     ),
                     Column(
                       children: [
@@ -174,7 +169,7 @@ class _ChatScreenState extends State<ChatPage> {
                       width: 15,
                     ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         //Implement send functionality.
                         textController.clear();
                         _store.collection('messages').add({
@@ -199,7 +194,6 @@ class _ChatScreenState extends State<ChatPage> {
                           ),
                         ],
                       ),
-
                     ),
                     SizedBox(
                       width: 15,
@@ -343,29 +337,6 @@ class MessageBubble extends StatelessWidget {
           ),
           (fromCurrentuser)
               ? GestureDetector(
-                  onTap: () async {
-                    print('dada');
-                    print(loggedInUser!.uid);
-                    XFile? image = await new ImagePicker()
-                        .pickImage(source: ImageSource.gallery);
-                    File imageFile = File(image!.path);
-                    String filePath = image.name;
-                    TaskSnapshot task = await FirebaseStorage.instance
-                        .ref('profileImages/$filePath')
-                        .putFile(imageFile);
-                    task.ref.getDownloadURL().then(
-                          (url) => _store
-                              .collection('users')
-                              .where('uid', isEqualTo: loggedInUser!.uid)
-                              .get()
-                              .then(
-                                (value) => value.docs[0].reference.get().then(
-                                      (value) => value.reference
-                                          .update({'profileImage': url}),
-                                    ),
-                              ),
-                        );
-                  },
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(url),
                   ),
