@@ -141,8 +141,16 @@ class _SurveyPageState extends State<SurveyPage> {
               Container(
                 height: 15,
               ),
+              CircleAvatar(
+                radius: 45,
+                backgroundColor: Colors.grey,
+                child: Icon(Icons.person,color: Colors.white,size: 60,),
+              ),
               Container(
-                height: 540,
+                height: 15,
+              ),
+              Container(
+                height: 460,
                 child: ListView.builder(
                   itemCount: surveyList.length,
                   itemBuilder: (context, i) {
