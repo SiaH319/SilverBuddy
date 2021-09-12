@@ -30,9 +30,9 @@ class _MainPageState extends State<MainPage> {
     PageModel pageModel = context.watch<PageModel>();
     return MaterialApp(
         home: (pageModel.pageId == 0)
-            ? FirstPage()
+            ? SurveyPage()
             : (pageModel.pageId == 1)
-                ? SurveyPage()
+                ? FirstPage()
                 : (pageModel.pageId == 2)
                     ? MapPage()
                     : (pageModel.pageId == 3)

@@ -1,12 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pageModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/src/provider.dart';
 
+final _store = FirebaseFirestore.instance;
+User? loggedInUser;
+
 class SurveyPage extends StatefulWidget {
   @override
   _SurveyPageState createState() => _SurveyPageState();
 }
+
+List<dynamic> arr = new List.filled(50, 1, growable: false);
 
 final surveyList = [
   'Am the life of the party',
@@ -62,9 +69,28 @@ final surveyList = [
 ];
 
 class _SurveyPageState extends State<SurveyPage> {
+  final _auth = FirebaseAuth.instance;
+  void GetCurrentUser() async {
+    try {
+      final user = await _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+        print(loggedInUser!.email);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    GetCurrentUser();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<String> surveyQ=['s','e','aasdfadsf'];
     PageModel pageModel = context.watch<PageModel>();
     return Scaffold(
       body: SafeArea(
@@ -72,10 +98,7 @@ class _SurveyPageState extends State<SurveyPage> {
           width: 500,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/img_2.png"),
-                  fit: BoxFit.cover
-              )
-          ),
+                  image: AssetImage("assets/img_2.png"), fit: BoxFit.cover)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -102,7 +125,6 @@ class _SurveyPageState extends State<SurveyPage> {
                   SizedBox(
                     width: 30,
                   ),
-
                   Text(
                     'Please fill the ~~~~',
                     style: GoogleFonts.nunito(
@@ -117,37 +139,32 @@ class _SurveyPageState extends State<SurveyPage> {
                 height: 530,
                 child: ListView.builder(
                   itemCount: surveyList.length,
-                  itemBuilder:(context, i) {
-                    return  Padding(
-                      padding: const EdgeInsets.fromLTRB(30,10,30,10),
-                      child: Container(
-                        height: 100,
-                        width: 1000,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)
-                        ),
-                        child: Text(surveyList[i]),
-                      ),
-                    );
+                  itemBuilder: (context, i) {
+                    return SurveyBox(i);
                   },
                 ),
               ),
-
               GestureDetector(
-                onTap: (){
+                onTap: () {
+                  print(arr);
+                  FirebaseFirestore.instance
+                      .collection('users')
+                      .where('uid', isEqualTo: loggedInUser!.uid)
+                      .get()
+                      .then((value) =>
+                          value.docs[0].reference.update({'survey': arr}));
                   pageModel.changePageId(2);
                 },
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(250,0,0,0),
+                  padding: const EdgeInsets.fromLTRB(250, 0, 0, 0),
                   child: Container(
                     //width: 500,
                     height: 60,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/next.png"),
-                          // fit: BoxFit.cover
-                        )),
+                      image: AssetImage("assets/next.png"),
+                      // fit: BoxFit.cover
+                    )),
                   ),
                 ),
               ),
@@ -155,6 +172,75 @@ class _SurveyPageState extends State<SurveyPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class SurveyBox extends StatelessWidget {
+  int i;
+  SurveyBox(this.i);
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+          child: Container(
+            height: 100,
+            width: 1000,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(15)),
+            child: Center(
+              child: Text(
+                surveyList[i],
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+              ),
+            ),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SurveyCircle(i, 1),
+            SurveyCircle(i, 2),
+            SurveyCircle(i, 3),
+            SurveyCircle(i, 4),
+            SurveyCircle(i, 5),
+          ],
+        )
+      ],
+    );
+  }
+}
+
+class SurveyCircle extends StatefulWidget {
+  SurveyCircle(this.boxId, this.id);
+  int boxId;
+  int id;
+  @override
+  _SurveyCircleState createState() => _SurveyCircleState();
+}
+
+class _SurveyCircleState extends State<SurveyCircle> {
+  _SurveyCircleState();
+
+  bool isClicked = false;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isClicked = !isClicked;
+          arr[this.widget.boxId] = this.widget.id;
+        });
+      },
+      child: CircleAvatar(
+          backgroundColor: Colors.amberAccent,
+          radius: 25,
+          child: CircleAvatar(
+              backgroundColor: (isClicked) ? Colors.amberAccent : Colors.white,
+              child: Text(this.widget.id.toString(),
+                  style: TextStyle(color: Colors.deepPurpleAccent)))),
     );
   }
 }
