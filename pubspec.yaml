@@ -57,6 +57,7 @@ flutter:
    - assets/img.png
    - assets/img_1.png
    - assets/img_2.png
+   - assets/img_5.png
    - assets/signup.png
    - assets/signin.png
    - assets/signup1.png
@@ -67,9 +68,28 @@ flutter:
    - assets/m1.png
    - assets/chatbox.png
    - assets/plus.png
+   - assets/plus1.png
    - assets/smile.png
    - assets/next.png
    - assets/Survey.png
+   - assets/send.png
+   - assets/back.png
+   - assets/menu.png
+   - assets/profile.png
+   - assets/Fishing.png
+   - assets/Cocktail.png
+   - assets/Golf.png
+   - assets/Coffee.png
+   - assets/Chess.png
+   - assets/Restaurant.png
+   - assets/memo.png
+   - assets/Che.png
+   - assets/star.png
+   - assets/w2.png
+   - assets/w3.png
+   - assets/w4.png
+   - assets/w5.png
+   - assets/join.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
