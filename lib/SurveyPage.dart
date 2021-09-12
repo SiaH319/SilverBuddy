@@ -95,15 +95,15 @@ class _SurveyPageState extends State<SurveyPage> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          width: 500,
+          width: 1000,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/img_2.png"), fit: BoxFit.cover)),
+                  image: AssetImage("assets/Survey.png"), fit: BoxFit.cover)),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+//            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 50,
+                height: 20,
               ),
               Row(
                 children: [
@@ -113,7 +113,7 @@ class _SurveyPageState extends State<SurveyPage> {
                   Text(
                     'Survey',
                     style: GoogleFonts.nunito(
-                      fontSize: 32,
+                      fontSize: 34,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -123,20 +123,24 @@ class _SurveyPageState extends State<SurveyPage> {
               Row(
                 children: [
                   SizedBox(
+                    height: 0,
                     width: 30,
                   ),
                   Text(
-                    'Please fill the ~~~~',
+                    'Complete the Survey to find you Silverbuddies',
                     style: GoogleFonts.nunito(
-                      fontSize: 12,
+                      fontSize: 13,
                       color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w300,
                     ),
                   ),
                 ],
               ),
               Container(
-                height: 530,
+                height: 15,
+              ),
+              Container(
+                height: 540,
                 child: ListView.builder(
                   itemCount: surveyList.length,
                   itemBuilder: (context, i) {
@@ -156,7 +160,7 @@ class _SurveyPageState extends State<SurveyPage> {
                   pageModel.changePageId(2);
                 },
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(250, 0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                   child: Container(
                     //width: 500,
                     height: 60,
@@ -184,23 +188,26 @@ class SurveyBox extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
           child: Container(
-            height: 100,
-            width: 1000,
+            height: 44,
+            width: 1060,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(15)),
+                color: Colors.white, borderRadius: BorderRadius.circular(22)),
             child: Center(
               child: Text(
                 surveyList[i],
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+                style: GoogleFonts.nunito(
+                    fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
           ),
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            Container(
+              width: 70,
+            ),
             SurveyCircle(i, 1),
             SurveyCircle(i, 2),
             SurveyCircle(i, 3),
@@ -227,20 +234,29 @@ class _SurveyCircleState extends State<SurveyCircle> {
   bool isClicked = false;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          isClicked = !isClicked;
-          arr[this.widget.boxId] = this.widget.id;
-        });
-      },
-      child: CircleAvatar(
-          backgroundColor: Colors.amberAccent,
-          radius: 25,
-          child: CircleAvatar(
-              backgroundColor: (isClicked) ? Colors.amberAccent : Colors.white,
-              child: Text(this.widget.id.toString(),
-                  style: TextStyle(color: Colors.deepPurpleAccent)))),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(7.0, 4.0, 7.0, 12.0),
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            isClicked = !isClicked;
+            arr[this.widget.boxId] = this.widget.id;
+          });
+        },
+        child: CircleAvatar(
+            backgroundColor: (isClicked) ? Color(0xFFFFE589) : Colors.white,
+            radius: 20.7,
+            child: CircleAvatar(
+                backgroundColor:
+                    (isClicked) ? Color(0xFFFFE589) : Color(0xFF712EFF),
+                child: Text(
+                  this.widget.id.toString(),
+                  style: GoogleFonts.nunito(
+                      color: (isClicked) ? Colors.black : Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600),
+                ))),
+      ),
     );
   }
 }
