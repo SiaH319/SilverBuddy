@@ -1,4 +1,4 @@
-# Silver Buddy
+# Silver Buddy: Johns Hopkins' MedHacks 2021 WINNER Best Use of Google Cloud
 
 Our application "Sliver Buddy" is to reduce social isolation in the elderly population by creating a mobile app that increases one-on-one and group interactions by rewarding social behaviour. 
 <br><br><br>
